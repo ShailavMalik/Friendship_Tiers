@@ -97,6 +97,17 @@ A modern, vibrant single-page React application showcasing friendship tiers with
    npm run preview
    ```
 
+4. **Deploy to GitHub Pages**:
+   
+   The project automatically deploys to GitHub Pages when you push to the `main` branch via GitHub Actions.
+   
+   Your live site will be available at: `https://shailavmalik.github.io/Friendship_Tiers/`
+
+   To manually build and check the production build:
+   ```bash
+   npm run build
+   ```
+
 ## 📁 Project Structure
 
 ```
