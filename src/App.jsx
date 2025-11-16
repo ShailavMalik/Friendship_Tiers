@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Header from "./components/Header";
 import TierCard from "./components/TierCard";
@@ -20,6 +20,18 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [friendInfo, setFriendInfo] = useState(null);
   const [showFriendPopup, setShowFriendPopup] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleWelcomeSubmit = (name) => {
     setUserName(name);
@@ -370,7 +382,7 @@ function App() {
         />
       </div>
       {/* Reduce particles on mobile */}
-      {[...Array(window.innerWidth < 768 ? 15 : 40)].map((_, i) => (
+      {[...Array(isMobile ? 10 : 30)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute rounded-full pointer-events-none will-change-transform"

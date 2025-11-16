@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import FriendDataPanel from "./FriendDataPanel";
 
@@ -11,7 +11,12 @@ const Footer = () => {
   const [authVisible, setAuthVisible] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [authError, setAuthError] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
   const PASSWORD = "Gemini@123"; // Client-side (visible) – fine for casual gating
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
   const socialLinks = [
     {
       name: "GitHub",
@@ -62,13 +67,15 @@ const Footer = () => {
         {/* Stats Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+          whileInView={!isMobile ? { opacity: 1, y: 0 } : undefined}
+          viewport={!isMobile ? { once: true, amount: 0.3 } : undefined}
+          transition={{ duration: 0.5 }}
           className="grid grid-cols-3 gap-4 md:gap-8 max-w-3xl mx-auto mb-12">
           {stats.map((stat, i) => (
             <motion.div
               key={i}
-              whileHover={{ scale: 1.05, y: -5 }}
+              whileHover={!isMobile ? { scale: 1.05, y: -5 } : undefined}
               className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-white/10">
               <div className="text-3xl md:text-5xl font-bold text-white mb-2 font-['Space_Grotesk']">
                 {stat.value}
@@ -85,8 +92,10 @@ const Footer = () => {
           {/* Logo & Tagline */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
+            animate={isMobile ? { opacity: 1, scale: 1 } : undefined}
+            whileInView={!isMobile ? { opacity: 1, scale: 1 } : undefined}
+            viewport={!isMobile ? { once: true, amount: 0.3 } : undefined}
+            transition={{ duration: 0.5 }}
             className="mb-8">
             <div className="flex items-center justify-center gap-3 mb-4">
               <motion.span
@@ -116,8 +125,9 @@ const Footer = () => {
           {/* Social Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+            whileInView={!isMobile ? { opacity: 1, y: 0 } : undefined}
+            viewport={!isMobile ? { once: true, amount: 0.3 } : undefined}
             transition={{ delay: 0.2 }}
             className="mb-8">
             <p className="text-white/60 text-sm mb-4 font-semibold">
@@ -130,7 +140,7 @@ const Footer = () => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, y: -3 }}
+                  whileHover={!isMobile ? { scale: 1.1, y: -3 } : undefined}
                   whileTap={{ scale: 0.95 }}
                   className={`group relative px-5 py-3 bg-gradient-to-r ${link.color} rounded-xl shadow-lg hover:shadow-2xl transition-all border border-white/20`}>
                   <div className="flex items-center gap-2">
@@ -149,16 +159,19 @@ const Footer = () => {
           {/* Decorative Line */}
           <motion.div
             initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
+            animate={isMobile ? { scaleX: 1 } : undefined}
+            whileInView={!isMobile ? { scaleX: 1 } : undefined}
+            viewport={!isMobile ? { once: true, amount: 0.3 } : undefined}
+            transition={{ duration: 0.5 }}
             className="w-full max-w-2xl mx-auto h-px bg-gradient-to-r from-transparent via-white/30 to-transparent mb-8"
           />
 
           {/* Creator Section */}
           <motion.div
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            animate={isMobile ? { opacity: 1 } : undefined}
+            whileInView={!isMobile ? { opacity: 1 } : undefined}
+            viewport={!isMobile ? { once: true, amount: 0.3 } : undefined}
             transition={{ delay: 0.3 }}
             className="mb-6">
             <p className="text-white/80 text-lg font-semibold mb-3">
@@ -187,8 +200,9 @@ const Footer = () => {
           {/* Copyright & Legal */}
           <motion.div
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            animate={isMobile ? { opacity: 1 } : undefined}
+            whileInView={!isMobile ? { opacity: 1 } : undefined}
+            viewport={!isMobile ? { once: true, amount: 0.3 } : undefined}
             transition={{ delay: 0.4 }}
             className="space-y-2">
             <p className="text-white/60 text-sm font-medium">
