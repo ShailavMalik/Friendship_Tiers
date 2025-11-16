@@ -11,11 +11,6 @@ export const knownFriends = {
     { names: ["bhawan", "bhawna", "bawana"], displayName: "Bhawana" },
     { names: ["shaili", "shaily"], displayName: "Shaili" },
     { names: ["shivam", "shivam shakya"], displayName: "Shivam" },
-    {
-      names: ["vaani", "vaani pal"],
-      displayName: "Vaani",
-      message: "You are some arrogant but still a close friend 😁",
-    },
     { names: ["rahul", "rahul chauchan"], displayName: "Rahul" },
   ],
 
@@ -23,6 +18,11 @@ export const knownFriends = {
   bff: [
     { names: ["sarthak", "sarthak vats"], displayName: "Sarthak" },
     { names: ["jay", "jay gupta"], displayName: "Jay" },
+    {
+      names: ["vaani", "vaani pal"],
+      displayName: "Vaani",
+      message: "You are some arrogant but still a bff 😁",
+    },
   ],
 
   // Close Acquaintance (new tier after insertion in UI)
@@ -32,6 +32,13 @@ export const knownFriends = {
     { names: ["vikas", "vikas kumar"], displayName: "Vikas" },
     { names: ["jayant"], displayName: "Jayant" },
     { names: ["anuskha"], displayName: "Anuskha" },
+  ],
+
+  // Just Knowing
+  justKnowing: [
+    { names: ["tanvi"], displayName: "Tanvi" },
+    { names: ["khushi"], displayName: "Khushi" },
+    { names: ["parisha"], displayName: "Parisha" },
   ],
 
   // Friends
@@ -44,8 +51,7 @@ export const knownFriends = {
     {
       names: ["sakshi", "sakshi poonia"],
       displayName: "Sakshi",
-      message:
-        "Your transparent & simple nature is really appreciable.",
+      message: "Your transparent & simple nature is really appreciable.",
     },
     { names: ["ritika", "ritika sharma"], displayName: "Ritika" },
     { names: ["nishant", "nishant tomar"], displayName: "Nishant" },
@@ -150,6 +156,30 @@ export const findFriendTier = (inputName) => {
           tier: "Close Acquaintance",
           displayName: friend.displayName,
           tierLevel: 3,
+        };
+      }
+    }
+  }
+
+  // Check Just Knowing
+  if (knownFriends.justKnowing) {
+    for (const friend of knownFriends.justKnowing) {
+      if (
+        friend.names.some((name) => {
+          const normalizedFriendName = normalizeName(name);
+          return (
+            normalizedFriendName === normalized ||
+            normalized.includes(normalizedFriendName) ||
+            normalizedFriendName.includes(normalized) ||
+            calculateSimilarity(normalized, normalizedFriendName) > 0.7
+          );
+        })
+      ) {
+        return {
+          tier: "Just Knowing",
+          displayName: friend.displayName,
+          tierLevel: 2,
+          message: friend.message,
         };
       }
     }
