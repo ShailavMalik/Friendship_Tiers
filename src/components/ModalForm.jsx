@@ -66,7 +66,6 @@ const ModalForm = ({ selectedTier, onClose, userName }) => {
         }
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);

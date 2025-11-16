@@ -54,7 +54,7 @@ const TierCard = ({ tier, index, onSelectTier, userName }) => {
         }),
       });
     } catch (error) {
-      console.error("Error sending show-more notification:", error);
+      // Silently handle error
     }
   };
 
