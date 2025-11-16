@@ -17,8 +17,21 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Better mobile scrolling */
+html,
+body {
+    -webkit-overflow-scrolling: touch;
+}
+
 * {
     box-sizing: border-box;
+}
+
+/* Prevent layout shift on mobile */
+@media (max-width: 768px) {
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
 }
 
 @layer utilities {

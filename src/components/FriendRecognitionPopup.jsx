@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /**
@@ -9,6 +9,12 @@ import { motion, AnimatePresence } from "framer-motion";
  * @param {function} onClose - Callback when popup is dismissed
  */
 const FriendRecognitionPopup = ({ friendInfo, isVisible, onClose }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
   // Auto-dismiss after 5 seconds
   useEffect(() => {
     if (isVisible && friendInfo) {
@@ -62,25 +68,37 @@ const FriendRecognitionPopup = ({ friendInfo, isVisible, onClose }) => {
 
           {/* Popup Card */}
           <motion.div
-            initial={{ scale: 0.5, opacity: 0, y: 50 }}
+            initial={{ scale: 0.8, opacity: 0, y: 30 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.8, opacity: 0, y: 20 }}
-            transition={{
-              type: "spring",
-              stiffness: 300,
-              damping: 25,
-            }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            transition={
+              isMobile
+                ? {
+                    duration: 0.3,
+                  }
+                : {
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 25,
+                  }
+            }
             className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none">
             <motion.div
               className="relative bg-gradient-to-br from-purple-900/95 via-indigo-900/95 to-pink-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border-4 border-white/20 max-w-lg w-full p-8 pointer-events-auto"
-              animate={{
-                boxShadow: [
-                  "0 0 60px rgba(168, 85, 247, 0.4)",
-                  "0 0 80px rgba(236, 72, 153, 0.6)",
-                  "0 0 60px rgba(168, 85, 247, 0.4)",
-                ],
-              }}
-              transition={{ duration: 2, repeat: Infinity }}>
+              animate={
+                !isMobile
+                  ? {
+                      boxShadow: [
+                        "0 0 60px rgba(168, 85, 247, 0.4)",
+                        "0 0 80px rgba(236, 72, 153, 0.6)",
+                        "0 0 60px rgba(168, 85, 247, 0.4)",
+                      ],
+                    }
+                  : undefined
+              }
+              transition={
+                !isMobile ? { duration: 2, repeat: Infinity } : undefined
+              }>
               {/* Close Button */}
               <button
                 onClick={onClose}
@@ -90,7 +108,7 @@ const FriendRecognitionPopup = ({ friendInfo, isVisible, onClose }) => {
 
               {/* Confetti Effect */}
               <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
-                {[...Array(20)].map((_, i) => (
+                {[...Array(isMobile ? 8 : 15)].map((_, i) => (
                   <motion.div
                     key={i}
                     className="absolute text-2xl"
@@ -101,12 +119,13 @@ const FriendRecognitionPopup = ({ friendInfo, isVisible, onClose }) => {
                     }}
                     animate={{
                       top: "110%",
-                      rotate: Math.random() * 720,
+                      rotate: Math.random() * 360,
                     }}
                     transition={{
-                      duration: 3 + Math.random() * 2,
+                      duration: isMobile ? 4 : 3 + Math.random() * 2,
                       repeat: Infinity,
                       delay: Math.random() * 2,
+                      ease: "linear",
                     }}>
                     {
                       ["🎉", "✨", "🎊", "💫", "⭐", "🌟"][
@@ -121,22 +140,29 @@ const FriendRecognitionPopup = ({ friendInfo, isVisible, onClose }) => {
               <div className="relative z-10 text-center">
                 {/* Emoji Banner */}
                 <motion.div
-                  initial={{ scale: 0, rotate: -180 }}
+                  initial={{ scale: 0, rotate: isMobile ? 0 : -180 }}
                   animate={{ scale: 1, rotate: 0 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 200,
-                    delay: 0.2,
-                  }}
+                  transition={
+                    isMobile
+                      ? {
+                          duration: 0.3,
+                          delay: 0.1,
+                        }
+                      : {
+                          type: "spring",
+                          stiffness: 200,
+                          delay: 0.2,
+                        }
+                  }
                   className="text-7xl mb-4">
                   {getTierEmoji(friendInfo.tier)}
                 </motion.div>
 
                 {/* Main Message */}
                 <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
+                  transition={{ delay: isMobile ? 0.15 : 0.3, duration: 0.4 }}
                   className="text-3xl md:text-4xl font-bold text-white mb-2 font-['Space_Grotesk']">
                   Welcome Back!
                 </motion.h2>
@@ -144,7 +170,7 @@ const FriendRecognitionPopup = ({ friendInfo, isVisible, onClose }) => {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.4 }}
+                  transition={{ delay: isMobile ? 0.2 : 0.4, duration: 0.3 }}
                   className="mb-4">
                   <p className="text-xl text-white/90 mb-2">
                     Hey{" "}
@@ -157,9 +183,9 @@ const FriendRecognitionPopup = ({ friendInfo, isVisible, onClose }) => {
 
                 {/* Tier Badge */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
+                  transition={{ delay: isMobile ? 0.25 : 0.5, duration: 0.3 }}
                   className="relative inline-block mb-6">
                   <div
                     className={`px-8 py-4 rounded-2xl bg-gradient-to-r ${getTierColor(
@@ -177,7 +203,10 @@ const FriendRecognitionPopup = ({ friendInfo, isVisible, onClose }) => {
                         <motion.p
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.55 }}
+                          transition={{
+                            delay: isMobile ? 0.3 : 0.55,
+                            duration: 0.3,
+                          }}
                           className="text-white/90 text-lg italic mb-4 px-4">
                           {friendInfo.message}
                         </motion.p>
@@ -186,17 +215,19 @@ const FriendRecognitionPopup = ({ friendInfo, isVisible, onClose }) => {
                     </p>
                   </div>
 
-                  {/* Glow Effect */}
-                  <motion.div
-                    className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${getTierColor(
-                      friendInfo.tier
-                    )} blur-xl -z-10`}
-                    animate={{
-                      opacity: [0.5, 0.8, 0.5],
-                      scale: [1, 1.05, 1],
-                    }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
+                  {/* Glow Effect - simplified on mobile */}
+                  {!isMobile && (
+                    <motion.div
+                      className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${getTierColor(
+                        friendInfo.tier
+                      )} blur-xl -z-10`}
+                      animate={{
+                        opacity: [0.5, 0.8, 0.5],
+                        scale: [1, 1.05, 1],
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                  )}
                 </motion.div>
 
                 {/* Subtext */}

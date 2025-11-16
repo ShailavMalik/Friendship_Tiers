@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /**
@@ -18,6 +18,11 @@ const ModalForm = ({ selectedTier, onClose, userName }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' or 'error'
   const [notHiringShown, setNotHiringShown] = useState(false); // GF role special message
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   const isGFRole = selectedTier.isGF;
 
@@ -83,39 +88,65 @@ const ModalForm = ({ selectedTier, onClose, userName }) => {
         className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
         {/* Modal Container */}
         <motion.div
-          initial={{ scale: 0.5, opacity: 0, y: 100, rotateX: -30 }}
+          initial={{
+            scale: isMobile ? 0.9 : 0.5,
+            opacity: 0,
+            y: isMobile ? 30 : 100,
+            rotateX: isMobile ? 0 : -30,
+          }}
           animate={{ scale: 1, opacity: 1, y: 0, rotateX: 0 }}
-          exit={{ scale: 0.5, opacity: 0, y: 100, rotateX: 30 }}
-          transition={{ type: "spring", damping: 20, stiffness: 300 }}
+          exit={{
+            scale: isMobile ? 0.95 : 0.5,
+            opacity: 0,
+            y: isMobile ? 20 : 100,
+            rotateX: isMobile ? 0 : 30,
+          }}
+          transition={
+            isMobile
+              ? { duration: 0.25 }
+              : { type: "spring", damping: 20, stiffness: 300 }
+          }
           onClick={(e) => e.stopPropagation()}
           className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden relative">
-          {/* Animated Border Glow */}
-          <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 opacity-20 blur-xl"></div>
+          {/* Animated Border Glow - disabled on mobile */}
+          {!isMobile && (
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 opacity-20 blur-xl"></div>
+          )}
 
           {/* Header */}
           <div
             className="p-8 text-white text-center relative z-10"
             style={{ background: selectedTier.gradient }}>
             <motion.div
-              animate={{
-                rotate: [0, 10, -10, 0],
-                scale: [1, 1.1, 1.1, 1],
-              }}
-              transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
+              animate={
+                !isMobile
+                  ? {
+                      rotate: [0, 10, -10, 0],
+                      scale: [1, 1.1, 1.1, 1],
+                    }
+                  : {
+                      scale: [1, 1.05, 1],
+                    }
+              }
+              transition={
+                !isMobile
+                  ? { duration: 1.5, repeat: Infinity, repeatDelay: 2 }
+                  : { duration: 2, repeat: Infinity }
+              }
               className="text-6xl mb-4 filter drop-shadow-2xl">
               {selectedTier.emoji}
             </motion.div>
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: isMobile ? 0.1 : 0.2, duration: 0.3 }}
               className="text-4xl font-bold mb-2 font-['Space_Grotesk'] drop-shadow-lg">
               {isGFRole ? "GF Role Interview" : selectedTier.name}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: isMobile ? 0.15 : 0.3, duration: 0.3 }}
               className="text-xl opacity-95 bg-white/20 px-4 py-1 rounded-full inline-block">
               {isGFRole ? "Schedule Your Interview 😅" : selectedTier.price}
             </motion.p>

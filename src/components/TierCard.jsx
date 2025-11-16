@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /**
@@ -14,6 +14,11 @@ const TierCard = ({ tier, index, onSelectTier, userName }) => {
   const [showAllPerks, setShowAllPerks] = useState(false);
   const [isExpanding, setIsExpanding] = useState(false);
   const [showEligibilityWarning, setShowEligibilityWarning] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   const {
     name,
@@ -65,12 +70,16 @@ const TierCard = ({ tier, index, onSelectTier, userName }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50, rotateX: -15 }}
+      initial={{
+        opacity: 0,
+        y: isMobile ? 20 : 50,
+        rotateX: isMobile ? 0 : -15,
+      }}
       animate={{ opacity: 1, y: 0, rotateX: 0 }}
       transition={{
-        duration: 0.6,
-        delay: index * 0.15,
-        type: "spring",
+        duration: isMobile ? 0.4 : 0.6,
+        delay: index * 0.1,
+        type: isMobile ? "tween" : "spring",
         stiffness: 100,
       }}
       className={`group relative rounded-3xl p-8 shadow-2xl transition-all duration-300 ${
@@ -80,7 +89,7 @@ const TierCard = ({ tier, index, onSelectTier, userName }) => {
       }`}
       style={{
         background: gradient,
-        transformStyle: "preserve-3d",
+        transformStyle: isMobile ? "flat" : "preserve-3d",
       }}>
       {/* Premium Badge */}
       {badge && (

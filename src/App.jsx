@@ -437,12 +437,12 @@ function App() {
                 ))}
               </div>
               <motion.div
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: 1.2, type: "spring", stiffness: 100 }}
-                whileHover={{ scale: 1.03, y: -5 }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2, duration: 0.6 }}
+                whileHover={!isMobile ? { scale: 1.02, y: -3 } : undefined}
                 className="mt-12 max-w-4xl mx-auto relative overflow-hidden rounded-3xl p-[2px] shadow-2xl">
-                {/* Animated border gradient */}
+                {/* Animated border gradient - simplified on mobile */}
                 <motion.div
                   className="absolute inset-0 rounded-3xl"
                   style={{
@@ -450,72 +450,101 @@ function App() {
                       "linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6, #ec4899)",
                     backgroundSize: "300% 300%",
                   }}
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
+                  animate={
+                    !isMobile
+                      ? {
+                          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                        }
+                      : undefined
+                  }
+                  transition={
+                    !isMobile
+                      ? {
+                          duration: 8,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }
+                      : undefined
+                  }
                 />
 
-                {/* Glowing aura */}
-                <motion.div
-                  className="absolute -inset-2 rounded-3xl blur-2xl opacity-50"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, rgba(236, 72, 153, 0.6), rgba(139, 92, 246, 0.6), rgba(59, 130, 246, 0.6))",
-                  }}
-                  animate={{
-                    opacity: [0.3, 0.6, 0.3],
-                    scale: [0.98, 1.02, 0.98],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                  }}
-                />
-
-                <div className="relative bg-black/40 backdrop-blur-xl rounded-3xl p-8 text-center text-white">
-                  {/* Holographic shimmer */}
+                {/* Glowing aura - disabled on mobile */}
+                {!isMobile && (
                   <motion.div
-                    className="absolute inset-0 rounded-3xl"
+                    className="absolute -inset-2 rounded-3xl blur-2xl opacity-50"
                     style={{
                       background:
-                        "linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%)",
+                        "linear-gradient(135deg, rgba(236, 72, 153, 0.6), rgba(139, 92, 246, 0.6), rgba(59, 130, 246, 0.6))",
                     }}
                     animate={{
-                      x: ["-100%", "200%"],
+                      opacity: [0.3, 0.6, 0.3],
+                      scale: [0.98, 1.02, 0.98],
                     }}
                     transition={{
                       duration: 3,
                       repeat: Infinity,
-                      ease: "easeInOut",
                     }}
                   />
+                )}
 
-                  <motion.div
-                    animate={{
-                      rotate: 360,
-                      scale: [1, 1.15, 1],
-                    }}
-                    transition={{
-                      rotate: {
-                        duration: 20,
+                <div className="relative bg-black/40 backdrop-blur-xl rounded-3xl p-8 text-center text-white">
+                  {/* Holographic shimmer - disabled on mobile */}
+                  {!isMobile && (
+                    <motion.div
+                      className="absolute inset-0 rounded-3xl"
+                      style={{
+                        background:
+                          "linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%)",
+                      }}
+                      animate={{
+                        x: ["-100%", "200%"],
+                      }}
+                      transition={{
+                        duration: 4,
                         repeat: Infinity,
                         ease: "linear",
-                      },
-                      scale: {
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      },
-                    }}
+                      }}
+                    />
+                  )}
+
+                  <motion.div
+                    animate={
+                      !isMobile
+                        ? {
+                            rotate: 360,
+                            scale: [1, 1.1, 1],
+                          }
+                        : {
+                            scale: [1, 1.05, 1],
+                          }
+                    }
+                    transition={
+                      !isMobile
+                        ? {
+                            rotate: {
+                              duration: 20,
+                              repeat: Infinity,
+                              ease: "linear",
+                            },
+                            scale: {
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "linear",
+                            },
+                          }
+                        : {
+                            scale: {
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "linear",
+                            },
+                          }
+                    }
                     className="inline-block text-6xl mb-6 relative"
                     style={{
-                      filter:
-                        "drop-shadow(0 0 20px rgba(236, 72, 153, 0.8)) drop-shadow(0 0 40px rgba(139, 92, 246, 0.6))",
+                      filter: isMobile
+                        ? "drop-shadow(0 0 10px rgba(236, 72, 153, 0.6))"
+                        : "drop-shadow(0 0 20px rgba(236, 72, 153, 0.8)) drop-shadow(0 0 40px rgba(139, 92, 246, 0.6))",
                     }}>
                     🎯
                   </motion.div>
