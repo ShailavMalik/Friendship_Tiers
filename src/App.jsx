@@ -306,29 +306,47 @@ function App() {
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         {/* Reduce animations on mobile for performance */}
         <motion.div
-          animate={{
-            x: [0, 100, -50, 0],
-            y: [0, -80, 50, 0],
-            scale: [1, 1.3, 1.1, 1],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-1/2 -left-1/4 w-[800px] h-[800px] rounded-full blur-[120px] opacity-30 will-change-transform"
+          animate={
+            !isMobile
+              ? {
+                  x: [0, 100, -50, 0],
+                  y: [0, -80, 50, 0],
+                  scale: [1, 1.3, 1.1, 1],
+                }
+              : undefined
+          }
+          transition={
+            !isMobile
+              ? { duration: 25, repeat: Infinity, ease: "linear" }
+              : undefined
+          }
+          className="absolute -top-1/2 -left-1/4 w-[800px] h-[800px] rounded-full blur-[120px] opacity-30"
           style={{
             background:
               "radial-gradient(circle, rgba(236, 72, 153, 0.6), rgba(139, 92, 246, 0.4), transparent)",
+            willChange: isMobile ? "auto" : "transform",
           }}
         />
         <motion.div
-          animate={{
-            x: [0, -120, 80, 0],
-            y: [0, 100, -60, 0],
-            scale: [1, 1.4, 1.2, 1],
-          }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="absolute -bottom-1/2 -right-1/4 w-[900px] h-[900px] rounded-full blur-[120px] opacity-30 will-change-transform"
+          animate={
+            !isMobile
+              ? {
+                  x: [0, -120, 80, 0],
+                  y: [0, 100, -60, 0],
+                  scale: [1, 1.4, 1.2, 1],
+                }
+              : undefined
+          }
+          transition={
+            !isMobile
+              ? { duration: 30, repeat: Infinity, ease: "linear" }
+              : undefined
+          }
+          className="absolute -bottom-1/2 -right-1/4 w-[900px] h-[900px] rounded-full blur-[120px] opacity-30"
           style={{
             background:
               "radial-gradient(circle, rgba(59, 130, 246, 0.6), rgba(168, 85, 247, 0.4), transparent)",
+            willChange: isMobile ? "auto" : "transform",
           }}
         />
         {/* Show fewer orbs on mobile */}
@@ -382,10 +400,10 @@ function App() {
         />
       </div>
       {/* Reduce particles on mobile */}
-      {[...Array(isMobile ? 10 : 30)].map((_, i) => (
+      {[...Array(isMobile ? 5 : 30)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full pointer-events-none will-change-transform"
+          className="absolute rounded-full pointer-events-none"
           style={{
             width: Math.random() * 4 + 2,
             height: Math.random() * 4 + 2,
@@ -397,25 +415,41 @@ function App() {
                 : i % 3 === 1
                 ? "rgba(139, 92, 246, 0.6)"
                 : "rgba(59, 130, 246, 0.6)",
-            boxShadow:
-              i % 3 === 0
-                ? "0 0 15px rgba(236, 72, 153, 0.8)"
-                : i % 3 === 1
-                ? "0 0 15px rgba(139, 92, 246, 0.8)"
-                : "0 0 15px rgba(59, 130, 246, 0.8)",
+            boxShadow: isMobile
+              ? "none"
+              : i % 3 === 0
+              ? "0 0 15px rgba(236, 72, 153, 0.8)"
+              : i % 3 === 1
+              ? "0 0 15px rgba(139, 92, 246, 0.8)"
+              : "0 0 15px rgba(59, 130, 246, 0.8)",
+            willChange: isMobile ? "auto" : "transform",
           }}
-          animate={{
-            y: [0, Math.random() * -200 - 100, Math.random() * -400 - 200],
-            x: [0, Math.random() * 100 - 50],
-            opacity: [0, 1, 0],
-            scale: [0, 1.5, 0],
-          }}
-          transition={{
-            duration: 4 + Math.random() * 4,
-            repeat: Infinity,
-            delay: Math.random() * 8,
-            ease: "linear",
-          }}
+          animate={
+            !isMobile
+              ? {
+                  y: [
+                    0,
+                    Math.random() * -200 - 100,
+                    Math.random() * -400 - 200,
+                  ],
+                  x: [0, Math.random() * 100 - 50],
+                  opacity: [0, 1, 0],
+                  scale: [0, 1.5, 0],
+                }
+              : {
+                  opacity: 0.4,
+                }
+          }
+          transition={
+            !isMobile
+              ? {
+                  duration: 4 + Math.random() * 4,
+                  repeat: Infinity,
+                  delay: Math.random() * 8,
+                  ease: "linear",
+                }
+              : undefined
+          }
         />
       ))}
       <div className="relative z-10">
