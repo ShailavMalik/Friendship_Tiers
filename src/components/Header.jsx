@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 /**
  * Header Component
  * Displays the main title and tagline with animated effects
+ * @param {string} userName - Current user's name
+ * @param {object} friendInfo - Recognized friend tier info { tier, displayName, tierLevel }
  */
-const Header = () => {
+const Header = ({ userName, friendInfo }) => {
   return (
-    <header className="text-center py-16 px-4 relative">
+    <header className="text-center py-12 px-4 relative mt-24 pt-8">
       {/* Glowing Background Effect */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
@@ -64,6 +66,33 @@ const Header = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
         className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto font-medium bg-white/5 backdrop-blur-sm px-6 py-3 rounded-full border border-white/10 relative z-10">
+        {userName && (
+          <span className="block mb-2 text-2xl font-bold text-yellow-300">
+            Hey {userName}! 👋
+          </span>
+        )}
+        {friendInfo && (
+          <>
+            <motion.span
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+              className="block mb-2 text-xl md:text-2xl font-extrabold">
+              <span className="bg-gradient-to-r from-green-300 via-blue-400 to-purple-400 text-transparent bg-clip-text drop-shadow-lg">
+                🎉 You're already a {friendInfo.tier} of Shailav! 🎉
+              </span>
+            </motion.span>
+            {friendInfo.message && (
+              <motion.span
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1 }}
+                className="block mb-3 text-base md:text-lg italic text-white/80 font-medium">
+                {friendInfo.message}
+              </motion.span>
+            )}
+          </>
+        )}
         ☕ Choose Your Friendship Tier - Because Every Connection Has a Price!
         😄
       </motion.p>
@@ -88,7 +117,7 @@ const Header = () => {
               ease: "easeInOut",
             }}
             whileHover={{ scale: 1.3, rotate: 20 }}
-            className="cursor-pointer filter drop-shadow-lg">
+            className="cursor-default filter drop-shadow-lg select-none">
             {emoji}
           </motion.span>
         ))}

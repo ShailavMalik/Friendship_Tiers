@@ -30,13 +30,13 @@ const transporter = nodemailer.createTransport({
  */
 app.post("/api/submit-tier", async (req, res) => {
   try {
-    const { name, mobile, message, tier, price } = req.body;
+    const { name, message, mobile, tier, price } = req.body;
 
     // Validate required fields
-    if (!name || !mobile || !tier) {
+    if (!name || !tier) {
       return res.status(400).json({
         success: false,
-        message: "Name, mobile number, and tier are required",
+        message: "Name and tier are required",
       });
     }
 
@@ -59,7 +59,7 @@ app.post("/api/submit-tier", async (req, res) => {
               <p><strong>Selected Tier:</strong> ${tier}</p>
               <p><strong>Price:</strong> ${price}</p>
               <p><strong>Name:</strong> ${name}</p>
-              <p><strong>Mobile:</strong> ${mobile}</p>
+              ${mobile ? `<p><strong>Mobile:</strong> ${mobile}</p>` : ""}
               ${
                 message ? `<p><strong>Message:</strong><br/>${message}</p>` : ""
               }
@@ -67,7 +67,7 @@ app.post("/api/submit-tier", async (req, res) => {
             
             <div style="margin-top: 30px; padding: 20px; background-color: #f0f0f0; border-radius: 8px;">
               <p style="margin: 0; font-size: 14px; color: #666;">
-                Someone wants to be your friend! 🎉 Review their request and reach out to them at ${mobile}
+                Someone wants to be your friend! 🎉
               </p>
             </div>
           </div>
@@ -91,6 +91,64 @@ app.post("/api/submit-tier", async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to submit tier request. Please try again.",
+    });
+  }
+});
+
+/**
+ * API endpoint to handle "Show More" clicks
+ */
+app.post("/api/show-more", async (req, res) => {
+  try {
+    const { userName, tierName } = req.body;
+
+    // Email content for Shailav
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: process.env.RECIPIENT_EMAIL || process.env.EMAIL_USER,
+      subject: `👀 ${userName} viewed ${tierName} features`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f7f7f7;">
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 10px; text-align: center;">
+            <h1 style="color: white; margin: 0;">Friendship Offers™</h1>
+            <p style="color: white; margin-top: 10px;">User Engagement Notification</p>
+          </div>
+          
+          <div style="background: white; padding: 30px; border-radius: 10px; margin-top: 20px;">
+            <h2 style="color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Activity Details</h2>
+            
+            <div style="margin-top: 20px;">
+              <p><strong>User Name:</strong> ${userName}</p>
+              <p><strong>Action:</strong> Clicked "Show More" on ${tierName} tier</p>
+              <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+            </div>
+            
+            <div style="margin-top: 30px; padding: 20px; background-color: #e3f2fd; border-radius: 8px;">
+              <p style="margin: 0; font-size: 14px; color: #1976d2;">
+                <strong>${userName}</strong> is interested in learning more about the <strong>${tierName}</strong> tier! 👀
+              </p>
+            </div>
+          </div>
+          
+          <div style="text-align: center; margin-top: 20px; color: #888; font-size: 12px;">
+            <p>© 2025 Friendship Offers™ by Shailav Malik</p>
+          </div>
+        </div>
+      `,
+    };
+
+    // Send email notification
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({
+      success: true,
+      message: "Show more tracked successfully!",
+    });
+  } catch (error) {
+    console.error("Error sending show-more notification:", error);
+    res.status(200).json({
+      success: true,
+      message: "Tracked locally",
     });
   }
 });

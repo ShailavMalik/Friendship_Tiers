@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 /**
  * TierCard Component
@@ -8,10 +8,60 @@ import { motion } from "framer-motion";
  * @param {Object} tier - Tier data object
  * @param {number} index - Card index for staggered animation
  * @param {Function} onSelectTier - Callback when tier is selected
+ * @param {string} userName - Current user's name
  */
-const TierCard = ({ tier, index, onSelectTier }) => {
-  const { name, price, emoji, perks, buttonText, gradient, disabled, badge } =
-    tier;
+const TierCard = ({ tier, index, onSelectTier, userName }) => {
+  const [showAllPerks, setShowAllPerks] = useState(false);
+  const [isExpanding, setIsExpanding] = useState(false);
+  const [showEligibilityWarning, setShowEligibilityWarning] = useState(false);
+
+  const {
+    name,
+    price,
+    emoji,
+    icon,
+    cursorEmoji,
+    mainPerks,
+    allPerks,
+    buttonText,
+    gradient,
+    disabled,
+    badge,
+  } = tier;
+
+  const buildCursor = (emojiChar) => {
+    if (!emojiChar) return "pointer";
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="48">${emojiChar}</text></svg>`;
+    return `url("data:image/svg+xml;utf8,${encodeURIComponent(
+      svg
+    )}") 32 32, pointer`;
+  };
+
+  const handleShowMore = async () => {
+    setIsExpanding(true);
+    setShowAllPerks(true);
+
+    // Send email with user's name
+    try {
+      await fetch("/api/show-more", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userName,
+          tierName: name,
+        }),
+      });
+    } catch (error) {
+      console.error("Error sending show-more notification:", error);
+    }
+  };
+
+  const perksToShow = showAllPerks ? allPerks : mainPerks;
+
+  const isSoulmate = name === "Soulmate";
+  const buttonIsDisabled = disabled && !isSoulmate; // Allow click on soulmate even if logically disabled to show message
 
   return (
     <motion.div
@@ -23,14 +73,10 @@ const TierCard = ({ tier, index, onSelectTier }) => {
         type: "spring",
         stiffness: 100,
       }}
-      whileHover={{
-        scale: disabled ? 1 : 1.08,
-        y: disabled ? 0 : -15,
-        rotateY: disabled ? 0 : 5,
-        transition: { duration: 0.3 },
-      }}
-      className={`relative rounded-3xl p-8 shadow-2xl transition-all duration-500 ${
-        disabled ? "opacity-75" : "hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)]"
+      className={`group relative rounded-3xl p-8 shadow-2xl transition-all duration-300 ${
+        disabled
+          ? "opacity-75"
+          : "hover:shadow-[0_25px_70px_rgba(0,0,0,0.4)] hover:-translate-y-2 hover:scale-[1.02] cursor-pointer"
       }`}
       style={{
         background: gradient,
@@ -57,15 +103,25 @@ const TierCard = ({ tier, index, onSelectTier }) => {
 
       {/* Card Header */}
       <div className="text-center mb-6">
-        <motion.div
-          animate={{
-            rotate: [0, 10, -10, 0],
-            scale: [1, 1.1, 1.1, 1],
-          }}
-          transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3 }}
-          className="text-7xl mb-4 drop-shadow-2xl filter hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]">
-          {emoji}
-        </motion.div>
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <motion.div
+            animate={{
+              rotate: [0, 10, -10, 0],
+              scale: [1, 1.1, 1.1, 1],
+            }}
+            transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3 }}
+            className="text-7xl drop-shadow-2xl filter group-hover:drop-shadow-[0_0_30px_rgba(255,255,255,0.9)] transition-all">
+            {emoji}
+          </motion.div>
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+            }}
+            transition={{ duration: 2, repeat: Infinity, repeatDelay: 2.5 }}
+            className="text-5xl drop-shadow-lg">
+            {icon}
+          </motion.div>
+        </div>
 
         <h3 className="text-3xl font-bold text-white mb-2 font-['Space_Grotesk'] drop-shadow-lg">
           {name}
@@ -81,55 +137,99 @@ const TierCard = ({ tier, index, onSelectTier }) => {
       </div>
 
       {/* Perks List */}
-      <ul className="space-y-3 mb-6 min-h-[300px]">
-        {perks.map((perk, i) => (
-          <motion.li
-            key={i}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.15 + i * 0.05 }}
-            whileHover={{ x: 5, transition: { duration: 0.2 } }}
-            className="flex items-start text-white/95 bg-white/5 p-2 rounded-lg backdrop-blur-sm hover:bg-white/10 transition-all">
-            <motion.span
-              className="mr-2 mt-1 flex-shrink-0 text-yellow-300"
-              animate={{ rotate: [0, 360] }}
+      <ul className="space-y-3 mb-4 min-h-[200px]">
+        <AnimatePresence>
+          {perksToShow.map((perk, i) => (
+            <motion.li
+              key={`${name}-${perk}-${i}`}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
               transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear",
-                delay: i * 0.2,
-              }}>
-              ✨
-            </motion.span>
-            <span className="text-sm leading-relaxed font-medium">{perk}</span>
-          </motion.li>
-        ))}
+                delay: showAllPerks ? i * 0.05 : index * 0.15 + i * 0.05,
+              }}
+              className="flex items-start text-white/95 bg-white/5 p-3 rounded-lg backdrop-blur-sm hover:bg-white/20 hover:shadow-lg hover:translate-x-2 transition-all duration-200 cursor-default">
+              <motion.span
+                className="mr-2 mt-1 flex-shrink-0 text-yellow-300"
+                animate={{ rotate: [0, 360] }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: i * 0.2,
+                }}>
+                ✨
+              </motion.span>
+              <span className="text-sm leading-relaxed font-medium">
+                {perk}
+              </span>
+            </motion.li>
+          ))}
+        </AnimatePresence>
       </ul>
 
+      {/* Show More Button */}
+      {!showAllPerks && (
+        <button
+          onClick={handleShowMore}
+          className="w-full mb-4 py-3 px-4 bg-white/20 backdrop-blur-sm border-2 border-white/30 rounded-xl text-white font-semibold text-sm hover:bg-white/40 hover:border-white/50 hover:shadow-xl transition-all duration-200 cursor-pointer select-none active:scale-95">
+          Show More Features ✨
+        </button>
+      )}
+
       {/* Action Button */}
-      <motion.button
-        whileHover={
-          disabled
-            ? {}
-            : { scale: 1.05, boxShadow: "0 10px 30px rgba(0,0,0,0.3)" }
-        }
-        whileTap={disabled ? {} : { scale: 0.95 }}
-        onClick={() => !disabled && onSelectTier(tier)}
-        disabled={disabled}
-        className={`w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 relative overflow-hidden ${
-          disabled
+      <button
+        onClick={() => {
+          if (isSoulmate && disabled) {
+            setShowEligibilityWarning(true);
+            // Auto-hide after a few seconds
+            setTimeout(() => setShowEligibilityWarning(false), 6000);
+            return;
+          }
+          if (!disabled) onSelectTier(tier);
+        }}
+        onMouseDown={(e) => {
+          if (!buttonIsDisabled) {
+            const cursor = buildCursor(cursorEmoji);
+            e.currentTarget.style.cursor = cursor;
+            document.body.style.cursor = cursor;
+          }
+        }}
+        onMouseUp={(e) => {
+          e.currentTarget.style.cursor = "pointer";
+          document.body.style.cursor = "auto";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.cursor = "pointer";
+          document.body.style.cursor = "auto";
+        }}
+        disabled={buttonIsDisabled}
+        className={`w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-200 relative overflow-hidden select-none ${
+          buttonIsDisabled
             ? "bg-gray-400 cursor-not-allowed text-gray-700"
-            : "bg-white text-purple-900 hover:bg-opacity-90 shadow-xl hover:shadow-2xl"
+            : "bg-white text-purple-900 hover:bg-opacity-95 hover:shadow-2xl hover:scale-[1.02] shadow-xl cursor-pointer active:scale-95"
         }`}>
-        {!disabled && (
+        {!buttonIsDisabled && (
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-pink-400/20"
+            className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-pink-400/20 pointer-events-none"
             animate={{ x: ["-100%", "100%"] }}
             transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
           />
         )}
-        <span className="relative z-10">{buttonText}</span>
-      </motion.button>
+        <span className="relative z-10 pointer-events-none">{buttonText}</span>
+      </button>
+
+      {/* Soulmate Eligibility Warning */}
+      {isSoulmate && disabled && showEligibilityWarning && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          className="mt-4 p-4 rounded-xl bg-red-500/20 border border-red-400/40 text-red-100 text-sm backdrop-blur-sm shadow-lg">
+          <p className="font-semibold mb-1">Not Eligible Yet 🚫</p>
+          <p>U are not eligible. Have to be in GF tier for it. 😅</p>
+        </motion.div>
+      )}
 
       {/* Decorative Corner Elements with Animation */}
       <motion.div

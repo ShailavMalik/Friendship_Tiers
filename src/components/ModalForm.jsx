@@ -7,15 +7,19 @@ import { motion, AnimatePresence } from "framer-motion";
  *
  * @param {Object} selectedTier - The tier object selected by the user
  * @param {Function} onClose - Callback to close the modal
+ * @param {string} userName - Current user's name
  */
-const ModalForm = ({ selectedTier, onClose }) => {
+const ModalForm = ({ selectedTier, onClose, userName }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    mobile: "",
+    name: userName || "",
     message: "",
+    mobile: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' or 'error'
+  const [notHiringShown, setNotHiringShown] = useState(false); // GF role special message
+
+  const isGFRole = selectedTier.isGF;
 
   // Handle input changes
   const handleChange = (e) => {
@@ -32,27 +36,34 @@ const ModalForm = ({ selectedTier, onClose }) => {
     setSubmitStatus(null);
 
     try {
-      // Send data to backend
-      const response = await fetch("http://localhost:5000/api/submit-tier", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          tier: selectedTier.name,
-          price: selectedTier.price,
-        }),
-      });
-
-      if (response.ok) {
+      if (isGFRole) {
+        // For GF role, do not actually create application; show not hiring message
+        setNotHiringShown(true);
         setSubmitStatus("success");
-        // Close modal after 2 seconds
+        // Auto close after delay
         setTimeout(() => {
           onClose();
-        }, 2000);
+        }, 4500);
       } else {
-        setSubmitStatus("error");
+        const response = await fetch("/api/submit-tier", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: formData.name,
+            message: formData.message,
+            mobile: formData.mobile || undefined,
+            tier: selectedTier.name,
+            price: selectedTier.price,
+          }),
+        });
+        if (response.ok) {
+          setSubmitStatus("success");
+          setTimeout(() => {
+            onClose();
+          }, 3000);
+        } else {
+          setSubmitStatus("error");
+        }
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -100,19 +111,45 @@ const ModalForm = ({ selectedTier, onClose }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="text-4xl font-bold mb-2 font-['Space_Grotesk'] drop-shadow-lg">
-              {selectedTier.name}
+              {isGFRole ? "GF Role Interview" : selectedTier.name}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
               className="text-xl opacity-95 bg-white/20 px-4 py-1 rounded-full inline-block">
-              {selectedTier.price}
+              {isGFRole ? "Schedule Your Interview 😅" : selectedTier.price}
             </motion.p>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="p-8 space-y-5 relative z-10">
+            {isGFRole && !notHiringShown && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-pink-50 border-2 border-pink-300 rounded-xl p-4 mb-4">
+                <p className="text-pink-800 text-center font-semibold text-sm">
+                  🎉 Your interview is scheduled for the GF role! Fill in the
+                  details below to proceed. 😄
+                </p>
+              </motion.div>
+            )}
+            {isGFRole && notHiringShown && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-red-50 border-2 border-red-300 rounded-xl p-5 mb-4 text-center">
+                <p className="text-red-700 font-bold text-sm mb-1">
+                  We Are Not Hiring 😅
+                </p>
+                <p className="text-red-600 text-xs">
+                  This role is currently closed. We'll inform you when
+                  applications open again!
+                </p>
+              </motion.div>
+            )}
+
             {/* Name Input */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -130,31 +167,9 @@ const ModalForm = ({ selectedTier, onClose }) => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-5 py-3.5 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-200 transition-all outline-none text-gray-800 font-medium"
+                readOnly
+                className="w-full px-5 py-3.5 border-2 border-gray-300 rounded-xl bg-gray-50 text-gray-800 font-medium cursor-not-allowed"
                 placeholder="Enter your name"
-              />
-            </motion.div>
-
-            {/* Mobile Number Input */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}>
-              <label
-                htmlFor="mobile"
-                className="block text-sm font-semibold text-gray-700 mb-2">
-                Mobile Number 📱
-              </label>
-              <input
-                type="tel"
-                id="mobile"
-                name="mobile"
-                value={formData.mobile}
-                onChange={handleChange}
-                required
-                pattern="[0-9]{10}"
-                className="w-full px-5 py-3.5 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-200 transition-all outline-none text-gray-800 font-medium"
-                placeholder="9876543210"
               />
             </motion.div>
 
@@ -162,11 +177,13 @@ const ModalForm = ({ selectedTier, onClose }) => {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}>
+              transition={{ delay: 0.2 }}>
               <label
                 htmlFor="message"
                 className="block text-sm font-semibold text-gray-700 mb-2">
-                Message (Optional) 💬
+                {isGFRole
+                  ? "Why should you be selected? 💭"
+                  : "Message (Optional) 💬"}
               </label>
               <textarea
                 id="message"
@@ -175,19 +192,60 @@ const ModalForm = ({ selectedTier, onClose }) => {
                 onChange={handleChange}
                 rows="3"
                 className="w-full px-5 py-3.5 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-200 transition-all outline-none resize-none text-gray-800"
-                placeholder="Any message for Shailav?"
+                placeholder={
+                  isGFRole
+                    ? "Tell us why you're perfect for this role..."
+                    : "Any message for Shailav?"
+                }
               />
+            </motion.div>
+
+            {/* Mobile (Optional) */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.22 }}>
+              <label
+                htmlFor="mobile"
+                className="block text-sm font-semibold text-gray-700 mb-2">
+                Mobile (Optional) 📱
+              </label>
+              <input
+                type="tel"
+                id="mobile"
+                name="mobile"
+                value={formData.mobile}
+                onChange={handleChange}
+                pattern="[0-9+\-() ]{7,20}"
+                className="w-full px-5 py-3.5 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-200 transition-all outline-none text-gray-800"
+                placeholder="e.g. +91 98765 43210"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Optional. Digits & + - ( ) allowed.
+              </p>
             </motion.div>
 
             {/* Submit Status Messages */}
             <AnimatePresence>
               {submitStatus === "success" && (
                 <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="bg-green-100 border-2 border-green-500 text-green-700 px-4 py-3 rounded-xl text-center font-semibold">
-                  🎉 Successfully submitted! Welcome to {selectedTier.name}!
+                  initial={{ opacity: 0, scale: 0.8, y: -10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  className="bg-gradient-to-r from-green-100 to-emerald-100 border-2 border-green-500 text-green-800 px-5 py-4 rounded-xl text-center font-semibold shadow-lg">
+                  <div className="text-3xl mb-2">🎉</div>
+                  <div className="text-lg font-bold mb-1">
+                    {notHiringShown
+                      ? "Submission Received"
+                      : "Message Sent Successfully!"}
+                  </div>
+                  <div className="text-sm">
+                    {isGFRole
+                      ? notHiringShown
+                        ? "We are not hiring for this role right now. You'll be notified when it opens."
+                        : "Your GF role interview has been scheduled! 💖"
+                      : `Welcome to ${selectedTier.name}!`}
+                  </div>
                 </motion.div>
               )}
               {submitStatus === "error" && (
@@ -207,29 +265,25 @@ const ModalForm = ({ selectedTier, onClose }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}>
-              <motion.button
+              <button
                 type="button"
                 onClick={onClose}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex-1 py-3.5 px-6 border-2 border-gray-300 rounded-xl font-semibold text-gray-700 hover:bg-gray-100 transition-all shadow-md hover:shadow-lg">
+                className="flex-1 py-3.5 px-6 border-2 border-gray-300 rounded-xl font-semibold text-gray-700 hover:bg-gray-100 hover:shadow-lg hover:scale-[1.02] transition-all duration-200 shadow-md cursor-pointer select-none active:scale-95">
                 Cancel
-              </motion.button>
-              <motion.button
+              </button>
+              <button
                 type="submit"
-                disabled={isSubmitting}
-                whileHover={!isSubmitting ? { scale: 1.05 } : {}}
-                whileTap={!isSubmitting ? { scale: 0.95 } : {}}
-                className="flex-1 py-3.5 px-6 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 text-white rounded-xl font-bold hover:from-purple-700 hover:via-pink-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl relative overflow-hidden">
+                disabled={isSubmitting || (isGFRole && notHiringShown)}
+                className="flex-1 py-3.5 px-6 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 text-white rounded-xl font-bold hover:from-purple-700 hover:via-pink-700 hover:to-purple-700 hover:shadow-xl hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg relative overflow-hidden cursor-pointer select-none active:scale-95">
                 {!isSubmitting && (
                   <motion.div
-                    className="absolute inset-0 bg-white/20"
+                    className="absolute inset-0 bg-white/20 pointer-events-none"
                     animate={{ x: ["-100%", "100%"] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   />
                 )}
                 {isSubmitting ? (
-                  <span className="flex items-center justify-center">
+                  <span className="flex items-center justify-center pointer-events-none">
                     <svg
                       className="animate-spin h-5 w-5 mr-2"
                       viewBox="0 0 24 24">
@@ -251,9 +305,11 @@ const ModalForm = ({ selectedTier, onClose }) => {
                     Submitting...
                   </span>
                 ) : (
-                  <span className="relative z-10">Submit 🚀</span>
+                  <span className="relative z-10 pointer-events-none">
+                    {isGFRole && notHiringShown ? "Closed" : "Submit 🚀"}
+                  </span>
                 )}
-              </motion.button>
+              </button>
             </motion.div>
           </form>
         </motion.div>
