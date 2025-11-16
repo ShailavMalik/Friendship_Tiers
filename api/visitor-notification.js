@@ -53,9 +53,18 @@ export default async function handler(req, res) {
       });
     }
 
+    // Convert to IST (Indian Standard Time)
     const visitTime = timestamp
-      ? new Date(timestamp).toLocaleString()
-      : new Date().toLocaleString();
+      ? new Date(timestamp).toLocaleString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          dateStyle: "full",
+          timeStyle: "long",
+        })
+      : new Date().toLocaleString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          dateStyle: "full",
+          timeStyle: "long",
+        });
 
     // Email content
     const mailOptions = {

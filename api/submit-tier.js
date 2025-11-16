@@ -76,6 +76,14 @@ export default async function handler(req, res) {
               ${
                 message ? `<p><strong>Message:</strong><br/>${message}</p>` : ""
               }
+              <p><strong>Submitted Time (IST):</strong> ${new Date().toLocaleString(
+                "en-IN",
+                {
+                  timeZone: "Asia/Kolkata",
+                  dateStyle: "full",
+                  timeStyle: "long",
+                }
+              )}</p>
             </div>
             
             <div style="margin-top: 30px; padding: 20px; background-color: #f0f0f0; border-radius: 8px;">

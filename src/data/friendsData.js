@@ -32,6 +32,13 @@ export const knownFriends = {
     { names: ["vikas", "vikas kumar"], displayName: "Vikas" },
     { names: ["jayant"], displayName: "Jayant" },
     { names: ["anuskha"], displayName: "Anuskha" },
+    { names: ["rachit","rachit kumar"], displayName: "Rachit" },
+    { names: ["shivani","shivani sharma"], displayName: "Shivani" },
+    { names: ["kumkum","kumkum"], displayName: "Kumkum" },
+    { names: ["shivansh","shivansh poonia"], displayName: "Shivansh" },
+    { names: ["aman","aman anand"], displayName: "Aman" },
+    { names: ["vishu","vishu rajput"], displayName: "Vishu" },
+    { names: ["sahil"], displayName: "Sahil" },
   ],
 
   // Just Knowing
@@ -39,6 +46,14 @@ export const knownFriends = {
     { names: ["tanvi"], displayName: "Tanvi" },
     { names: ["khushi"], displayName: "Khushi" },
     { names: ["parisha"], displayName: "Parisha" },
+    { names: ["nikky chaudhary","nikki"], displayName: "Nikky" },
+    { names: ["nisha","nisha"], displayName: "Nisha" },
+    { names: ["n","nisha"], displayName: "Nisha" },
+    { names: ["divyani","divyani soni"], displayName: "Divyani" },
+    { names: ["chirag","chirag tomar"], displayName: "Chirag" },
+    { names: ["shivansh","shivansh poonia"], displayName: "Shivansh" },
+    { names: ["aarti","aarti saini"], displayName: "Aarti" },
+    { names: ["pooja"], displayName: "Pooja" },
   ],
 
   // Friends

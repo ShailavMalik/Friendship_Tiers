@@ -63,7 +63,14 @@ export default async function handler(req, res) {
             <div style="margin-top: 20px;">
               <p><strong>User Name:</strong> ${userName}</p>
               <p><strong>Action:</strong> Clicked "Show More" on ${tierName} tier</p>
-              <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+              <p><strong>Time (IST):</strong> ${new Date().toLocaleString(
+                "en-IN",
+                {
+                  timeZone: "Asia/Kolkata",
+                  dateStyle: "full",
+                  timeStyle: "long",
+                }
+              )}</p>
             </div>
             
             <div style="margin-top: 30px; padding: 20px; background-color: #e3f2fd; border-radius: 8px;">
