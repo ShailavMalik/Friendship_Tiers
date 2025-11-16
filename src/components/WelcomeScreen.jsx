@@ -7,10 +7,31 @@ import { motion, AnimatePresence } from "framer-motion";
  */
 const WelcomeScreen = ({ onSubmit }) => {
   const [name, setName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (name.trim()) {
+    if (name.trim() && !isSubmitting) {
+      setIsSubmitting(true);
+
+      // Send visitor notification
+      try {
+        await fetch("/api/visitor-notification", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name.trim(),
+            timestamp: new Date().toISOString(),
+          }),
+        });
+      } catch (error) {
+        // Silently handle error - don't block user experience
+        console.log("Notification sent in background");
+      }
+
+      // Continue with normal flow
       onSubmit(name.trim());
     }
   };
@@ -121,13 +142,16 @@ const WelcomeScreen = ({ onSubmit }) => {
               }}
               whileTap={{ scale: 0.95 }}
               type="submit"
-              className="w-full mt-6 py-4 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 text-white rounded-2xl font-bold text-lg shadow-2xl hover:shadow-pink-500/50 transition-all relative overflow-hidden">
+              disabled={isSubmitting}
+              className="w-full mt-6 py-4 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 text-white rounded-2xl font-bold text-lg shadow-2xl hover:shadow-pink-500/50 transition-all relative overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed">
               <motion.div
                 className="absolute inset-0 bg-white/20"
                 animate={{ x: ["-100%", "100%"] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-              <span className="relative z-10">Let's Go! 🚀</span>
+              <span className="relative z-10">
+                {isSubmitting ? "Entering... 🚀" : "Let's Go! 🚀"}
+              </span>
             </motion.button>
           </form>
 
