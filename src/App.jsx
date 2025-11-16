@@ -292,15 +292,15 @@ function App() {
             "radial-gradient(ellipse at top, #1a0b2e 0%, #0f0720 50%, #050208 100%)",
         }}></div>
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        {/* Reduce animations on mobile for performance */}
         <motion.div
           animate={{
             x: [0, 100, -50, 0],
             y: [0, -80, 50, 0],
             scale: [1, 1.3, 1.1, 1],
-            rotate: [0, 90, 180, 360],
           }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-1/2 -left-1/4 w-[800px] h-[800px] rounded-full blur-[120px] opacity-30"
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-1/2 -left-1/4 w-[800px] h-[800px] rounded-full blur-[120px] opacity-30 will-change-transform"
           style={{
             background:
               "radial-gradient(circle, rgba(236, 72, 153, 0.6), rgba(139, 92, 246, 0.4), transparent)",
@@ -311,24 +311,23 @@ function App() {
             x: [0, -120, 80, 0],
             y: [0, 100, -60, 0],
             scale: [1, 1.4, 1.2, 1],
-            rotate: [0, -90, -180, -360],
           }}
-          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-1/2 -right-1/4 w-[900px] h-[900px] rounded-full blur-[120px] opacity-30"
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="absolute -bottom-1/2 -right-1/4 w-[900px] h-[900px] rounded-full blur-[120px] opacity-30 will-change-transform"
           style={{
             background:
               "radial-gradient(circle, rgba(59, 130, 246, 0.6), rgba(168, 85, 247, 0.4), transparent)",
           }}
         />
+        {/* Show fewer orbs on mobile */}
         <motion.div
           animate={{
             x: [0, 60, -40, 0],
             y: [0, -60, 40, 0],
             scale: [1, 1.5, 1.2, 1],
-            rotate: [0, 120, 240, 360],
           }}
-          transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/3 right-1/4 w-[700px] h-[700px] rounded-full blur-[100px] opacity-25"
+          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/3 right-1/4 w-[700px] h-[700px] rounded-full blur-[100px] opacity-25 will-change-transform hidden md:block"
           style={{
             background:
               "radial-gradient(circle, rgba(251, 146, 60, 0.5), rgba(244, 114, 182, 0.4), transparent)",
@@ -339,17 +338,16 @@ function App() {
             x: [0, -80, 60, 0],
             y: [0, 80, -50, 0],
             scale: [1, 1.3, 1.15, 1],
-            rotate: [360, 240, 120, 0],
           }}
-          transition={{ duration: 32, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-1/4 left-1/3 w-[750px] h-[750px] rounded-full blur-[110px] opacity-25"
+          transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-1/4 left-1/3 w-[750px] h-[750px] rounded-full blur-[110px] opacity-25 will-change-transform hidden md:block"
           style={{
             background:
               "radial-gradient(circle, rgba(168, 85, 247, 0.5), rgba(236, 72, 153, 0.4), transparent)",
           }}
         />
       </div>
-      <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-10">
+      <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-10 hidden md:block">
         <motion.div
           animate={{
             backgroundPosition: ["0% 0%", "100% 100%"],
@@ -371,10 +369,11 @@ function App() {
           }}
         />
       </div>
-      {[...Array(40)].map((_, i) => (
+      {/* Reduce particles on mobile */}
+      {[...Array(window.innerWidth < 768 ? 15 : 40)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full pointer-events-none"
+          className="absolute rounded-full pointer-events-none will-change-transform"
           style={{
             width: Math.random() * 4 + 2,
             height: Math.random() * 4 + 2,
@@ -403,7 +402,7 @@ function App() {
             duration: 4 + Math.random() * 4,
             repeat: Infinity,
             delay: Math.random() * 8,
-            ease: "easeOut",
+            ease: "linear",
           }}
         />
       ))}

@@ -39,13 +39,13 @@ export const knownFriends = {
     {
       names: ["gungun", "gungun singh"],
       displayName: "Gungun",
-      message: "Your transparent & simple nature really wins Shailav's heart.",
+      message: "Your transparent & simple nature is really appreciable.",
     },
     {
       names: ["sakshi", "sakshi poonia"],
       displayName: "Sakshi",
       message:
-        "Your transparent & simple nature really wins Shailav's heatart.",
+        "Your transparent & simple nature is really appreciable.",
     },
     { names: ["ritika", "ritika sharma"], displayName: "Ritika" },
     { names: ["nishant", "nishant tomar"], displayName: "Nishant" },
