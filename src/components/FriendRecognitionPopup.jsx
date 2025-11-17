@@ -198,22 +198,23 @@ const FriendRecognitionPopup = ({ friendInfo, isVisible, onClose }) => {
                       {friendInfo.tier}
                     </p>
                     <p className="text-xl font-bold text-white/90 drop-shadow-md mt-1">
-                      {/* Personalized Message */}
-                      {friendInfo.message && (
-                        <motion.p
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            delay: isMobile ? 0.3 : 0.55,
-                            duration: 0.3,
-                          }}
-                          className="text-white/90 text-lg italic mb-4 px-4">
-                          {friendInfo.message}
-                        </motion.p>
-                      )}
                       of Shailav! 🎉
                     </p>
                   </div>
+
+                  {/* Personalized Message */}
+                  {friendInfo.message && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        delay: isMobile ? 0.3 : 0.55,
+                        duration: 0.3,
+                      }}
+                      className="text-white/90 text-base md:text-lg italic mt-4 px-2">
+                      "{friendInfo.message}"
+                    </motion.p>
+                  )}
 
                   {/* Glow Effect - simplified on mobile */}
                   {!isMobile && (

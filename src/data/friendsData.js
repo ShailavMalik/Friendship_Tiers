@@ -10,11 +10,16 @@ export const knownFriends = {
   // Close Friends
   closeFriends: [
     {
-      names: ["tarun","tarun kumar"],
+      names: ["tarun", "tarun kumar"],
       displayName: "Tarun",
       message: "Ustaad he kehde",
     },
-    { names: ["bhawana", "bhawna", "bawana"], displayName: "Bhawana", message: "Short, sharp-tempered, blunt—but totally cute. Small package, big personality!" },
+    {
+      names: ["bhawana", "bhawna", "bawana"],
+      displayName: "Bhawana",
+      message:
+        "Short, sharp-tempered, blunt—but totally cute. Small package, big personality!",
+    },
     {
       names: ["shaili", "shaily"],
       displayName: "Shaili",
@@ -25,7 +30,11 @@ export const knownFriends = {
       displayName: "Shivam",
       message: "Kala jadugar",
     },
-    { names: ["rahul", "rahul chauchan"], displayName: "Rahul", message: "The king of dad jokes and puns! 😂" },
+    {
+      names: ["rahul", "rahul chauchan"],
+      displayName: "Rahul",
+      message: "The king of dad jokes and puns! 😂",
+    },
   ],
 
   bff: [
@@ -38,6 +47,7 @@ export const knownFriends = {
     {
       names: ["jay", "jay gupta", "jayg"],
       displayName: "Jay",
+      message: "True BFF material!",
     },
     {
       names: ["vaani", "vaani pal"],
@@ -67,15 +77,32 @@ export const knownFriends = {
   justKnowing: [
     { names: ["tanvi"], displayName: "Tanvi" },
     { names: ["khushi"], displayName: "Khushi" },
-    { names: ["parisha"], displayName: "Parisha", message:"You are not good at 7C's of communication" },
-    { names: ["nikky chaudhary", "nikki"], displayName: "Nikky", message:"Chaudhary sahab ke kehde" },
+    {
+      names: ["parisha"],
+      displayName: "Parisha",
+      message: "You are not good at 7C's of communication",
+    },
+    {
+      names: ["nikky chaudhary", "nikki"],
+      displayName: "Nikky",
+      message: "Chaudhary sahab ke kehde",
+    },
     { names: ["nisha", "nisha sharma"], displayName: "Nisha" },
-    { names: ["divyani", "divyani soni"], displayName: "Divyani", message:"Linux & AWX? That’s all you need to rule the cloud computing world! 🎭😂" },
+    {
+      names: ["divyani", "divyani soni"],
+      displayName: "Divyani",
+      message:
+        "Linux & AWX? That’s all you need to rule the cloud computing world! 🎭😂",
+    },
     { names: ["chirag", "chirag tomar"], displayName: "Chirag" },
     { names: ["shivansh", "shivansh poonia"], displayName: "Shivansh" },
     { names: ["aarti", "aarti saini"], displayName: "Aarti" },
     { names: ["pooja"], displayName: "Pooja" },
-    { names: ["ravi", "ravi poonia"], displayName: "Ravi", message:"Sakshi ka bhai 🙂" },
+    {
+      names: ["ravi", "ravi poonia"],
+      displayName: "Ravi",
+      message: "Sakshi ka bhai 🙂",
+    },
     { names: ["harsh", "harsh yadav"], displayName: "Harsh" },
   ],
 
@@ -89,10 +116,15 @@ export const knownFriends = {
     {
       names: ["sakshi", "sakshi poonia"],
       displayName: "Sakshi",
-      message: "Your transparent and straightforward nature is honestly one of the things I appreciate most about you",
+      message:
+        "Your transparent and straightforward nature is honestly one of the things I appreciate most about you",
     },
     { names: ["ritika", "ritika sharma"], displayName: "Ritika" },
-    { names: ["nishant", "nishant tomar"], displayName: "Nishant",message:"Sher he kehde" },
+    {
+      names: ["nishant", "nishant tomar"],
+      displayName: "Nishant",
+      message: "Sher he kehde",
+    },
     {
       names: ["aishi", "aishi mitra"],
       displayName: "Aishi",
@@ -100,9 +132,18 @@ export const knownFriends = {
         "The way you keep giving relationship advice – you'll soon become a Close Friend!",
     },
     { names: ["aditya", "aditya mudhgal"], displayName: "Aditya" },
-    { names: ["ananya", "ananya jain"], displayName: "Ananya",message:"Your skills in sending the wrong resumes never fail to keep us entertained! 😂" },
-    { names: ["bhupendra", "bhupendra hapawat"], displayName: "Bhupendra" ,message:
-    "Your dedication to impressing the ladies is truly next-level. Keep shining, Casanova! 😂"},
+    {
+      names: ["ananya", "ananya jain"],
+      displayName: "Ananya",
+      message:
+        "Your skills in sending the wrong resumes never fail to keep us entertained! 😂",
+    },
+    {
+      names: ["bhupendra", "bhupendra hapawat"],
+      displayName: "Bhupendra",
+      message:
+        "Your dedication to impressing the ladies is truly next-level. Keep shining, Casanova! 😂",
+    },
     { names: ["vansh", "vansh tomar"], displayName: "Vansh" },
     { names: ["rakshit", "rakshit chaudhary"], displayName: "Rakshit" },
   ],
