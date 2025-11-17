@@ -64,19 +64,43 @@ export const knownFriends = {
     { names: ["vikas", "vikas kumar"], displayName: "Vikas" },
     { names: ["jayant"], displayName: "Jayant" },
     { names: ["anuskha"], displayName: "Anuskha" },
-    { names: ["rachit", "rachit kumar"], displayName: "Rachit",message: "Only I know u in whole mca" },
-    { names: ["shivani", "shivani sharma"], displayName: "Shivani", message: "BCA buddy" },
-    { names: ["kumkum", "kumkum"], displayName: "Kumkum",message: "BCA Acquaintance." },
-    { names: ["shivansh", "shivansh poonia"], displayName: "Shivansh",message: "boora he kehda" },
+    {
+      names: ["rachit", "rachit kumar"],
+      displayName: "Rachit",
+      message: "Only I know u in whole mca",
+    },
+    {
+      names: ["shivani", "shivani sharma"],
+      displayName: "Shivani",
+      message: "BCA buddy",
+    },
+    {
+      names: ["kumkum", "kumkum"],
+      displayName: "Kumkum",
+      message: "BCA Acquaintance.",
+    },
+    {
+      names: ["shivansh", "shivansh poonia"],
+      displayName: "Shivansh",
+      message: "boora he kehda",
+    },
     { names: ["aman", "aman anand"], displayName: "Aman" },
-    { names: ["vishu", "vishu rajput"], displayName: "Vishu",message: "bilkul hero he lga" },
-    { names: ["sahil"], displayName: "Sahil",message: "Gym guy." },
+    {
+      names: ["vishu", "vishu rajput"],
+      displayName: "Vishu",
+      message: "bilkul hero he lga",
+    },
+    { names: ["sahil"], displayName: "Sahil", message: "Gym guy." },
   ],
 
   // Just Knowing
   justKnowing: [
-    { names: ["tanvi"], displayName: "Tanvi", message: "You are good at maths, have taught me how to use packet tracer" },
-    { names: ["khushi"], displayName: "Khushi"},
+    {
+      names: ["tanvi"],
+      displayName: "Tanvi",
+      message: "You are good at maths, have taught me how to use packet tracer",
+    },
+    { names: ["khushi"], displayName: "Khushi" },
     {
       names: ["parisha"],
       displayName: "Parisha",
@@ -87,7 +111,11 @@ export const knownFriends = {
       displayName: "Nikky",
       message: "Chaudhary sahab ke kehde",
     },
-    { names: ["nisha", "nisha sharma"], displayName: "Nisha" , message: "Have n't talk much" },
+    {
+      names: ["nisha", "nisha sharma"],
+      displayName: "Nisha",
+      message: "Have n't talk much",
+    },
     {
       names: ["divyani", "divyani soni"],
       displayName: "Divyani",
@@ -119,7 +147,11 @@ export const knownFriends = {
       message:
         "Your transparent and straightforward nature is honestly one of the things I appreciate most about you",
     },
-    { names: ["ritika", "ritika sharma"], displayName: "Ritika", message: "Topper ladki" },
+    {
+      names: ["ritika", "ritika sharma"],
+      displayName: "Ritika",
+      message: "Topper ladki",
+    },
     {
       names: ["nishant", "nishant tomar"],
       displayName: "Nishant",
@@ -223,30 +255,7 @@ export const findFriendTier = (inputName) => {
     }
   }
 
-  // Check Close Acquaintance
-  if (knownFriends.closeAcquaintance) {
-    for (const friend of knownFriends.closeAcquaintance) {
-      if (
-        friend.names.some((name) => {
-          const normalizedFriendName = normalizeName(name);
-          return (
-            normalizedFriendName === normalized ||
-            normalized.includes(normalizedFriendName) ||
-            normalizedFriendName.includes(normalized) ||
-            calculateSimilarity(normalized, normalizedFriendName) > 0.7
-          );
-        })
-      ) {
-        return {
-          tier: "Close Acquaintance",
-          displayName: friend.displayName,
-          tierLevel: 3,
-        };
-      }
-    }
-  }
-
-  // Check Just Knowing
+  // Check Just Knowing (check before Close Acquaintance to avoid substring conflicts)
   if (knownFriends.justKnowing) {
     for (const friend of knownFriends.justKnowing) {
       if (
@@ -265,6 +274,29 @@ export const findFriendTier = (inputName) => {
           displayName: friend.displayName,
           tierLevel: 2,
           message: friend.message,
+        };
+      }
+    }
+  }
+
+  // Check Close Acquaintance
+  if (knownFriends.closeAcquaintance) {
+    for (const friend of knownFriends.closeAcquaintance) {
+      if (
+        friend.names.some((name) => {
+          const normalizedFriendName = normalizeName(name);
+          return (
+            normalizedFriendName === normalized ||
+            normalized.includes(normalizedFriendName) ||
+            normalizedFriendName.includes(normalized) ||
+            calculateSimilarity(normalized, normalizedFriendName) > 0.7
+          );
+        })
+      ) {
+        return {
+          tier: "Close Acquaintance",
+          displayName: friend.displayName,
+          tierLevel: 3,
         };
       }
     }
