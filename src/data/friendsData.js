@@ -14,7 +14,7 @@ export const knownFriends = {
       displayName: "Tarun",
       message: "Ustaad he kehde",
     },
-    { names: ["bhawan", "bhawna", "bawana"], displayName: "Bhawana", message: "Short, sharp-tempered, blunt—but totally cute. Small package, big personality!" },
+    { names: ["bhawana", "bhawna", "bawana"], displayName: "Bhawana", message: "Short, sharp-tempered, blunt—but totally cute. Small package, big personality!" },
     {
       names: ["shaili", "shaily"],
       displayName: "Shaili",
@@ -25,10 +25,9 @@ export const knownFriends = {
       displayName: "Shivam",
       message: "Kala jadugar",
     },
-    { names: ["rahul", "rahul chauchan"], displayName: "Rahul" },
+    { names: ["rahul", "rahul chauchan"], displayName: "Rahul", message: "The king of dad jokes and puns! 😂" },
   ],
 
-  // BFF (Best Friends Forever) — spruced up with personality and fun messages
   bff: [
     {
       names: ["sarthak", "sarthak vats"],
@@ -68,16 +67,15 @@ export const knownFriends = {
   justKnowing: [
     { names: ["tanvi"], displayName: "Tanvi" },
     { names: ["khushi"], displayName: "Khushi" },
-    { names: ["parisha"], displayName: "Parisha" },
-    { names: ["nikky chaudhary", "nikki"], displayName: "Nikky" },
-    { names: ["nisha", "nisha"], displayName: "Nisha" },
-    { names: ["n", "nisha"], displayName: "Nisha" },
-    { names: ["divyani", "divyani soni"], displayName: "Divyani" },
+    { names: ["parisha"], displayName: "Parisha", message:"You are not good at 7C's of communication" },
+    { names: ["nikky chaudhary", "nikki"], displayName: "Nikky", message:"Chaudhary sahab ke kehde" },
+    { names: ["nisha", "nisha sharma"], displayName: "Nisha" },
+    { names: ["divyani", "divyani soni"], displayName: "Divyani", message:"Linux & AWX? That’s all you need to rule the cloud computing world! 🎭😂" },
     { names: ["chirag", "chirag tomar"], displayName: "Chirag" },
     { names: ["shivansh", "shivansh poonia"], displayName: "Shivansh" },
     { names: ["aarti", "aarti saini"], displayName: "Aarti" },
     { names: ["pooja"], displayName: "Pooja" },
-    { names: ["ravi", "ravi poonia"], displayName: "Ravi" },
+    { names: ["ravi", "ravi poonia"], displayName: "Ravi", message:"Sakshi ka bhai 🙂" },
     { names: ["harsh", "harsh yadav"], displayName: "Harsh" },
   ],
 
@@ -102,7 +100,7 @@ export const knownFriends = {
         "The way you keep giving relationship advice – you'll soon become a Close Friend!",
     },
     { names: ["aditya", "aditya mudhgal"], displayName: "Aditya" },
-    { names: ["ananya", "ananya jain"], displayName: "Ananya" },
+    { names: ["ananya", "ananya jain"], displayName: "Ananya",message:"Your skills in sending the wrong resumes never fail to keep us entertained! 😂" },
     { names: ["bhupendra", "bhupendra hapawat"], displayName: "Bhupendra" ,message:
     "Your dedication to impressing the ladies is truly next-level. Keep shining, Casanova! 😂"},
     { names: ["vansh", "vansh tomar"], displayName: "Vansh" },
