@@ -214,7 +214,12 @@ export const findFriendTier = (inputName) => {
         );
       })
     ) {
-      return { tier: "BFF", displayName: friend.displayName, tierLevel: 5 };
+      return {
+        tier: "BFF",
+        displayName: friend.displayName,
+        tierLevel: 5,
+        message: friend.message,
+      };
     }
   }
 
