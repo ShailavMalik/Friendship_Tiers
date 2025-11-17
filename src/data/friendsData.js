@@ -92,7 +92,7 @@ export const knownFriends = {
       names: ["divyani", "divyani soni"],
       displayName: "Divyani",
       message:
-        "Linux & AWX? That’s all you need to rule the cloud computing world! 🎭😂",
+        "Hamesha teachers se random questions puchti rehti hai 😅 curiosity level max!",
     },
     { names: ["chirag", "chirag tomar"], displayName: "Chirag" },
     { names: ["shivansh", "shivansh poonia"], displayName: "Shivansh" },
