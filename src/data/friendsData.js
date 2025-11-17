@@ -4,24 +4,47 @@
  * Names are normalized (lowercase, common variations handled)
  */
 
+import { m } from "framer-motion";
+
 export const knownFriends = {
   // Close Friends
   closeFriends: [
-    { names: ["tarun"], displayName: "Tarun" },
-    { names: ["bhawan", "bhawna", "bawana"], displayName: "Bhawana" },
-    { names: ["shaili", "shaily"], displayName: "Shaili" },
-    { names: ["shivam", "shivam shakya"], displayName: "Shivam" },
+    {
+      names: ["tarun","tarun kumar"],
+      displayName: "Tarun",
+      message: "Ustaad he kehde",
+    },
+    { names: ["bhawan", "bhawna", "bawana"], displayName: "Bhawana", message: "Short, sharp-tempered, blunt—but totally cute. Small package, big personality!" },
+    {
+      names: ["shaili", "shaily"],
+      displayName: "Shaili",
+      message: "expert in giving exam tips",
+    },
+    {
+      names: ["shivam", "shivam shakya"],
+      displayName: "Shivam",
+      message: "Kala jadugar",
+    },
     { names: ["rahul", "rahul chauchan"], displayName: "Rahul" },
   ],
 
-  // BFF (Best Friends Forever)
+  // BFF (Best Friends Forever) — spruced up with personality and fun messages
   bff: [
-    { names: ["sarthak", "sarthak vats"], displayName: "Sarthak" },
-    { names: ["jay", "jay gupta"], displayName: "Jay" },
+    {
+      names: ["sarthak", "sarthak vats"],
+      displayName: "Sarthak",
+      message:
+        "The unofficial coach, public-speaking wizard, and midnight idea generator — true BFF material! 🧠🎤",
+    },
+    {
+      names: ["jay", "jay gupta", "jayg"],
+      displayName: "Jay",
+    },
     {
       names: ["vaani", "vaani pal"],
       displayName: "Vaani",
-      message: "You are some arrogant but still a bff 😁",
+      message:
+        "Stunning and honest, a bit arrogant, kinda driving me crazy—but still my legendary BFF. Sass, support, and a little anger combo!✨😄",
     },
   ],
 
@@ -32,12 +55,12 @@ export const knownFriends = {
     { names: ["vikas", "vikas kumar"], displayName: "Vikas" },
     { names: ["jayant"], displayName: "Jayant" },
     { names: ["anuskha"], displayName: "Anuskha" },
-    { names: ["rachit","rachit kumar"], displayName: "Rachit" },
-    { names: ["shivani","shivani sharma"], displayName: "Shivani" },
-    { names: ["kumkum","kumkum"], displayName: "Kumkum" },
-    { names: ["shivansh","shivansh poonia"], displayName: "Shivansh" },
-    { names: ["aman","aman anand"], displayName: "Aman" },
-    { names: ["vishu","vishu rajput"], displayName: "Vishu" },
+    { names: ["rachit", "rachit kumar"], displayName: "Rachit" },
+    { names: ["shivani", "shivani sharma"], displayName: "Shivani" },
+    { names: ["kumkum", "kumkum"], displayName: "Kumkum" },
+    { names: ["shivansh", "shivansh poonia"], displayName: "Shivansh" },
+    { names: ["aman", "aman anand"], displayName: "Aman" },
+    { names: ["vishu", "vishu rajput"], displayName: "Vishu" },
     { names: ["sahil"], displayName: "Sahil" },
   ],
 
@@ -46,14 +69,16 @@ export const knownFriends = {
     { names: ["tanvi"], displayName: "Tanvi" },
     { names: ["khushi"], displayName: "Khushi" },
     { names: ["parisha"], displayName: "Parisha" },
-    { names: ["nikky chaudhary","nikki"], displayName: "Nikky" },
-    { names: ["nisha","nisha"], displayName: "Nisha" },
-    { names: ["n","nisha"], displayName: "Nisha" },
-    { names: ["divyani","divyani soni"], displayName: "Divyani" },
-    { names: ["chirag","chirag tomar"], displayName: "Chirag" },
-    { names: ["shivansh","shivansh poonia"], displayName: "Shivansh" },
-    { names: ["aarti","aarti saini"], displayName: "Aarti" },
+    { names: ["nikky chaudhary", "nikki"], displayName: "Nikky" },
+    { names: ["nisha", "nisha"], displayName: "Nisha" },
+    { names: ["n", "nisha"], displayName: "Nisha" },
+    { names: ["divyani", "divyani soni"], displayName: "Divyani" },
+    { names: ["chirag", "chirag tomar"], displayName: "Chirag" },
+    { names: ["shivansh", "shivansh poonia"], displayName: "Shivansh" },
+    { names: ["aarti", "aarti saini"], displayName: "Aarti" },
     { names: ["pooja"], displayName: "Pooja" },
+    { names: ["ravi", "ravi poonia"], displayName: "Ravi" },
+    { names: ["harsh", "harsh yadav"], displayName: "Harsh" },
   ],
 
   // Friends
@@ -66,10 +91,10 @@ export const knownFriends = {
     {
       names: ["sakshi", "sakshi poonia"],
       displayName: "Sakshi",
-      message: "Your transparent & simple nature is really appreciable.",
+      message: "Your transparent and straightforward nature is honestly one of the things I appreciate most about you",
     },
     { names: ["ritika", "ritika sharma"], displayName: "Ritika" },
-    { names: ["nishant", "nishant tomar"], displayName: "Nishant" },
+    { names: ["nishant", "nishant tomar"], displayName: "Nishant",message:"Sher he kehde" },
     {
       names: ["aishi", "aishi mitra"],
       displayName: "Aishi",
@@ -78,7 +103,8 @@ export const knownFriends = {
     },
     { names: ["aditya", "aditya mudhgal"], displayName: "Aditya" },
     { names: ["ananya", "ananya jain"], displayName: "Ananya" },
-    { names: ["bhupendra", "bhupendra hapawat"], displayName: "Bhupendra" },
+    { names: ["bhupendra", "bhupendra hapawat"], displayName: "Bhupendra" ,message:
+    "Your dedication to impressing the ladies is truly next-level. Keep shining, Casanova! 😂"},
     { names: ["vansh", "vansh tomar"], displayName: "Vansh" },
     { names: ["rakshit", "rakshit chaudhary"], displayName: "Rakshit" },
   ],
