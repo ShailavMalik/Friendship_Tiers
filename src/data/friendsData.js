@@ -64,30 +64,30 @@ export const knownFriends = {
     { names: ["vikas", "vikas kumar"], displayName: "Vikas" },
     { names: ["jayant"], displayName: "Jayant" },
     { names: ["anuskha"], displayName: "Anuskha" },
-    { names: ["rachit", "rachit kumar"], displayName: "Rachit" },
-    { names: ["shivani", "shivani sharma"], displayName: "Shivani" },
-    { names: ["kumkum", "kumkum"], displayName: "Kumkum" },
-    { names: ["shivansh", "shivansh poonia"], displayName: "Shivansh" },
+    { names: ["rachit", "rachit kumar"], displayName: "Rachit",message: "Only I know u in whole mca" },
+    { names: ["shivani", "shivani sharma"], displayName: "Shivani", message: "BCA buddy" },
+    { names: ["kumkum", "kumkum"], displayName: "Kumkum",message: "BCA Acquaintance." },
+    { names: ["shivansh", "shivansh poonia"], displayName: "Shivansh",message: "boora he kehda" },
     { names: ["aman", "aman anand"], displayName: "Aman" },
-    { names: ["vishu", "vishu rajput"], displayName: "Vishu" },
-    { names: ["sahil"], displayName: "Sahil" },
+    { names: ["vishu", "vishu rajput"], displayName: "Vishu",message: "bilkul hero he lga" },
+    { names: ["sahil"], displayName: "Sahil",message: "Gym guy." },
   ],
 
   // Just Knowing
   justKnowing: [
-    { names: ["tanvi"], displayName: "Tanvi" },
-    { names: ["khushi"], displayName: "Khushi" },
+    { names: ["tanvi"], displayName: "Tanvi", message: "You are good at maths, have taught me how to use packet tracer" },
+    { names: ["khushi"], displayName: "Khushi"},
     {
       names: ["parisha"],
       displayName: "Parisha",
-      message: "You are not good at 7C's of communication",
+      message: "You are not good at 7C's of communication 😅",
     },
     {
       names: ["nikky chaudhary", "nikki"],
       displayName: "Nikky",
       message: "Chaudhary sahab ke kehde",
     },
-    { names: ["nisha", "nisha sharma"], displayName: "Nisha" },
+    { names: ["nisha", "nisha sharma"], displayName: "Nisha" , message: "Have n't talk much" },
     {
       names: ["divyani", "divyani soni"],
       displayName: "Divyani",
@@ -119,7 +119,7 @@ export const knownFriends = {
       message:
         "Your transparent and straightforward nature is honestly one of the things I appreciate most about you",
     },
-    { names: ["ritika", "ritika sharma"], displayName: "Ritika" },
+    { names: ["ritika", "ritika sharma"], displayName: "Ritika", message: "Topper ladki" },
     {
       names: ["nishant", "nishant tomar"],
       displayName: "Nishant",
