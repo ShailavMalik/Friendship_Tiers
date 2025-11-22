@@ -8,177 +8,177 @@ import { m } from "framer-motion";
 
 export const knownFriends = {
   // Close Friends
-  closeFriends: [
-    {
-      names: ["tarun", "tarun kumar"],
-      displayName: "Tarun",
-      message: "Ustaad he kehde",
-    },
-    {
-      names: ["bhawana", "bhawna", "bawana"],
-      displayName: "Bhawana",
-      message:
-        "Short, sharp-tempered, blunt—but totally cute. Small package, big personality!",
-    },
-    {
-      names: ["shaili", "shaily"],
-      displayName: "Shaili",
-      message: "expert in giving exam tips",
-    },
-    {
-      names: ["shivam", "shivam shakya"],
-      displayName: "Shivam",
-      message: "Kala jadugar",
-    },
-    {
-      names: ["rahul", "rahul chauchan"],
-      displayName: "Rahul",
-      message: "The king of dad jokes and puns! 😂",
-    },
-  ],
+//   closeFriends: [
+//     {
+//       names: ["tarun", "tarun kumar"],
+//       displayName: "Tarun",
+//       message: "Ustaad he kehde",
+//     },
+//     {
+//       names: ["bhawana", "bhawna", "bawana"],
+//       displayName: "Bhawana",
+//       message:
+//         "Short, sharp-tempered, blunt—but totally cute. Small package, big personality!",
+//     },
+//     {
+//       names: ["shaili", "shaily"],
+//       displayName: "Shaili",
+//       message: "expert in giving exam tips",
+//     },
+//     {
+//       names: ["shivam", "shivam shakya"],
+//       displayName: "Shivam",
+//       message: "Kala jadugar",
+//     },
+//     {
+//       names: ["rahul", "rahul chauchan"],
+//       displayName: "Rahul",
+//       message: "The king of dad jokes and puns! 😂",
+//     },
+//   ],
 
-  bff: [
-    {
-      names: ["sarthak", "sarthak vats"],
-      displayName: "Sarthak",
-      message:
-        "The unofficial coach, public-speaking wizard, and midnight idea generator — true BFF material! 🧠🎤",
-    },
-    {
-      names: ["jay", "jay gupta", "jayg"],
-      displayName: "Jay",
-      message: "True BFF material!",
-    },
-    {
-      names: ["vaani", "vaani pal"],
-      displayName: "Vaani",
-      message:
-        "Stunning and honest, a bit arrogant, kinda driving me crazy—but still my legendary BFF. Sass, support, and a little anger combo!✨😄",
-    },
-  ],
+//   bff: [
+//     {
+//       names: ["sarthak", "sarthak vats"],
+//       displayName: "Sarthak",
+//       message:
+//         "The unofficial coach, public-speaking wizard, and midnight idea generator — true BFF material! 🧠🎤",
+//     },
+//     {
+//       names: ["jay", "jay gupta", "jayg"],
+//       displayName: "Jay",
+//       message: "True BFF material!",
+//     },
+//     {
+//       names: ["vaani", "vaani pal"],
+//       displayName: "Vaani",
+//       message:
+//         "Stunning and honest, a bit arrogant, kinda driving me crazy—but still my legendary BFF. Sass, support, and a little anger combo!✨😄",
+//     },
+//   ],
 
-  // Close Acquaintance (new tier after insertion in UI)
-  closeAcquaintance: [
-    { names: ["vipul", "vipul bhardwaj"], displayName: "Vipul" },
-    { names: ["isha"], displayName: "Isha" },
-    { names: ["vikas", "vikas kumar"], displayName: "Vikas" },
-    { names: ["jayant"], displayName: "Jayant" },
-    { names: ["anuskha"], displayName: "Anuskha" },
-    {
-      names: ["rachit", "rachit kumar"],
-      displayName: "Rachit",
-      message: "Only I know u in whole mca",
-    },
-    {
-      names: ["shivani", "shivani sharma"],
-      displayName: "Shivani",
-      message: "BCA buddy",
-    },
-    {
-      names: ["kumkum", "kumkum"],
-      displayName: "Kumkum",
-      message: "BCA Acquaintance.",
-    },
-    {
-      names: ["shivansh", "shivansh poonia"],
-      displayName: "Shivansh",
-      message: "boora he kehda",
-    },
-    { names: ["aman", "aman anand"], displayName: "Aman" },
-    {
-      names: ["vishu", "vishu rajput"],
-      displayName: "Vishu",
-      message: "bilkul hero he lga",
-    },
-    { names: ["sahil"], displayName: "Sahil", message: "Gym guy." },
-  ],
+//   // Close Acquaintance (new tier after insertion in UI)
+//   closeAcquaintance: [
+//     { names: ["vipul", "vipul bhardwaj"], displayName: "Vipul" },
+//     { names: ["isha"], displayName: "Isha" },
+//     { names: ["vikas", "vikas kumar"], displayName: "Vikas" },
+//     { names: ["jayant"], displayName: "Jayant" },
+//     { names: ["anuskha"], displayName: "Anuskha" },
+//     {
+//       names: ["rachit", "rachit kumar"],
+//       displayName: "Rachit",
+//       message: "Only I know u in whole mca",
+//     },
+//     {
+//       names: ["shivani", "shivani sharma"],
+//       displayName: "Shivani",
+//       message: "BCA buddy",
+//     },
+//     {
+//       names: ["kumkum", "kumkum"],
+//       displayName: "Kumkum",
+//       message: "BCA Acquaintance.",
+//     },
+//     {
+//       names: ["shivansh", "shivansh poonia"],
+//       displayName: "Shivansh",
+//       message: "boora he kehda",
+//     },
+//     { names: ["aman", "aman anand"], displayName: "Aman" },
+//     {
+//       names: ["vishu", "vishu rajput"],
+//       displayName: "Vishu",
+//       message: "bilkul hero he lga",
+//     },
+//     { names: ["sahil"], displayName: "Sahil", message: "Gym guy." },
+//   ],
 
-  // Just Knowing
-  justKnowing: [
-    {
-      names: ["tanvi"],
-      displayName: "Tanvi",
-      message: "You are good at maths, have taught me how to use packet tracer",
-    },
-    { names: ["khushi"], displayName: "Khushi" },
-    {
-      names: ["parisha"],
-      displayName: "Parisha",
-      message: "You are not good at 7C's of communication 😅",
-    },
-    {
-      names: ["nikky chaudhary", "nikki"],
-      displayName: "Nikky",
-      message: "Chaudhary sahab ke kehde",
-    },
-    {
-      names: ["nisha", "nisha sharma"],
-      displayName: "Nisha",
-      message: "Have n't talk much",
-    },
-    {
-      names: ["divyani", "divyani soni"],
-      displayName: "Divyani",
-      message:
-        "Hamesha teachers se random questions puchti rehti hai 😅 curiosity level max!",
-    },
-    { names: ["chirag", "chirag tomar"], displayName: "Chirag" },
-    { names: ["shivansh", "shivansh poonia"], displayName: "Shivansh" },
-    { names: ["aarti", "aarti saini"], displayName: "Aarti" },
-    { names: ["pooja"], displayName: "Pooja" },
-    {
-      names: ["ravi", "ravi poonia"],
-      displayName: "Ravi",
-      message: "Sakshi ka bhai 🙂",
-    },
-    { names: ["harsh", "harsh yadav"], displayName: "Harsh" },
-  ],
+//   // Just Knowing
+//   justKnowing: [
+//     {
+//       names: ["tanvi"],
+//       displayName: "Tanvi",
+//       message: "You are good at maths, have taught me how to use packet tracer",
+//     },
+//     { names: ["khushi"], displayName: "Khushi" },
+//     {
+//       names: ["parisha"],
+//       displayName: "Parisha",
+//       message: "You are not good at 7C's of communication 😅",
+//     },
+//     {
+//       names: ["nikky chaudhary", "nikki"],
+//       displayName: "Nikky",
+//       message: "Chaudhary sahab ke kehde",
+//     },
+//     {
+//       names: ["nisha", "nisha sharma"],
+//       displayName: "Nisha",
+//       message: "Have n't talk much",
+//     },
+//     {
+//       names: ["divyani", "divyani soni"],
+//       displayName: "Divyani",
+//       message:
+//         "Hamesha teachers se random questions puchti rehti hai 😅 curiosity level max!",
+//     },
+//     { names: ["chirag", "chirag tomar"], displayName: "Chirag" },
+//     { names: ["shivansh", "shivansh poonia"], displayName: "Shivansh" },
+//     { names: ["aarti", "aarti saini"], displayName: "Aarti" },
+//     { names: ["pooja"], displayName: "Pooja" },
+//     {
+//       names: ["ravi", "ravi poonia"],
+//       displayName: "Ravi",
+//       message: "Sakshi ka bhai 🙂",
+//     },
+//     { names: ["harsh", "harsh yadav"], displayName: "Harsh" },
+//   ],
 
-  // Friends
-  friends: [
-    {
-      names: ["gungun", "gungun singh"],
-      displayName: "Gungun",
-      message: "Your transparent & simple nature is really appreciable.",
-    },
-    {
-      names: ["sakshi", "sakshi poonia"],
-      displayName: "Sakshi",
-      message:
-        "Your transparent and straightforward nature is honestly one of the things I appreciate most about you",
-    },
-    {
-      names: ["ritika", "ritika sharma"],
-      displayName: "Ritika",
-      message: "Topper ladki",
-    },
-    {
-      names: ["nishant", "nishant tomar"],
-      displayName: "Nishant",
-      message: "Sher he kehde",
-    },
-    {
-      names: ["aishi", "aishi mitra"],
-      displayName: "Aishi",
-      message:
-        "The way you keep giving relationship advice – you'll soon become a Close Friend!",
-    },
-    { names: ["aditya", "aditya mudhgal"], displayName: "Aditya" },
-    {
-      names: ["ananya", "ananya jain"],
-      displayName: "Ananya",
-      message:
-        "Your skills in sending the wrong resumes never fail to keep us entertained! 😂",
-    },
-    {
-      names: ["bhupendra", "bhupendra hapawat"],
-      displayName: "Bhupendra",
-      message:
-        "Your dedication to impressing the ladies is truly next-level. Keep shining, Casanova! 😂",
-    },
-    { names: ["vansh", "vansh tomar"], displayName: "Vansh" },
-    { names: ["rakshit", "rakshit chaudhary"], displayName: "Rakshit" },
-  ],
+//   // Friends
+//   friends: [
+//     {
+//       names: ["gungun", "gungun singh"],
+//       displayName: "Gungun",
+//       message: "Your transparent & simple nature is really appreciable.",
+//     },
+//     {
+//       names: ["sakshi", "sakshi poonia"],
+//       displayName: "Sakshi",
+//       message:
+//         "Your transparent and straightforward nature is honestly one of the things I appreciate most about you",
+//     },
+//     {
+//       names: ["ritika", "ritika sharma"],
+//       displayName: "Ritika",
+//       message: "Topper ladki",
+//     },
+//     {
+//       names: ["nishant", "nishant tomar"],
+//       displayName: "Nishant",
+//       message: "Sher he kehde",
+//     },
+//     {
+//       names: ["aishi", "aishi mitra"],
+//       displayName: "Aishi",
+//       message:
+//         "The way you keep giving relationship advice – you'll soon become a Close Friend!",
+//     },
+//     { names: ["aditya", "aditya mudhgal"], displayName: "Aditya" },
+//     {
+//       names: ["ananya", "ananya jain"],
+//       displayName: "Ananya",
+//       message:
+//         "Your skills in sending the wrong resumes never fail to keep us entertained! 😂",
+//     },
+//     {
+//       names: ["bhupendra", "bhupendra hapawat"],
+//       displayName: "Bhupendra",
+//       message:
+//         "Your dedication to impressing the ladies is truly next-level. Keep shining, Casanova! 😂",
+//     },
+//     { names: ["vansh", "vansh tomar"], displayName: "Vansh" },
+//     { names: ["rakshit", "rakshit chaudhary"], displayName: "Rakshit" },
+//   ],
 };
 
 /**
